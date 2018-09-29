@@ -1,0 +1,39 @@
+body{
+    padding: 12px;
+    width: 400px;
+}
+
+h1{
+    margin: 0;
+    text-align: center;
+    font-size: 1.8em;
+    margin-bottom: 12px;
+}
+
+#add-to-list{
+    margin-bottom: 12px;
+}
+
+.badge{
+    cursor: pointer;
+}
+
+textarea:hover, 
+input:hover,
+select:hover,
+textarea:active, 
+input:active,
+select:active, 
+textarea:focus, 
+input:focus,
+button:focus,
+select:focus,
+button:active,
+button:hover,
+label:focus,
+.btn:active,
+.btn.active{
+    outline: 0 !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
