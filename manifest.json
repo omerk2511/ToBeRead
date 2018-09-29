@@ -1,0 +1,19 @@
+{
+    "manifest_version": 2,
+	"name": "ToBeRead",
+	"description": "A Google Chrome extension for saving your reading list",
+	"version": "1.0",
+	"icons": {
+		"128": "icons/icon128.png",
+		"48": "icons/icon48.png",
+		"16": "icons/icon16.png"
+	},
+	"browser_action": {
+        "default_icon": "icons/icon16.png",
+        "default_popup": "popup.html"
+    },
+    "permissions": [
+        "storage",
+        "tabs"
+    ]
+}
