@@ -21,9 +21,9 @@ function clearReadingList(){
 function displayReadingList(readingList){
     for(var i = 0; i < readingList.length; i++){
         if(readingList[i] && readingList[i].url && readingList[i].title){
-            var itemToAdd = '<button type="button" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center open-item" id="'
+            var itemToAdd = '<li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center open-item" id="'
                 + readingList[i].url + '">' + readingList[i].title + '<span class="badge badge-danger badge-pill delete-item" id="x'
-                + readingList[i].url + '">X</span></button>';
+                + readingList[i].url + '">X</span></li>';
 
             $('#reading-list').append(itemToAdd);
         }
@@ -31,6 +31,12 @@ function displayReadingList(readingList){
 
     $('.list-group-item').each(function(){
         $(this).click(openItem);
+    });
+
+    $('.delete-item').each(function(){
+        $(this).click(function(){
+            removeItem(this.id.slice(1, this.id.length), function(){ });
+        });
     });
 }
 
@@ -55,10 +61,12 @@ function addToList(event){
 }
 
 function openItem(event){
-    var url = event.currentTarget.id;
-    removeItem(url, function(){
-        chrome.tabs.create({ url: url, active: true });
-    });
+    if(event.target == this){
+        var url = event.currentTarget.id;
+        removeItem(url, function(){
+            chrome.tabs.create({ url: url, active: true });
+        });
+    }
 }
 
 function removeItem(url, callback){
@@ -70,7 +78,10 @@ function removeItem(url, callback){
         for(var i = 0; i < readingList.length; i++){
             if(readingList[i].url == url){
                 readingList.splice(i, 1);
-                chrome.storage.local.set({ 'ReadingList': JSON.stringify(readingList) }, callback);
+                chrome.storage.local.set({ 'ReadingList': JSON.stringify(readingList) }, function(){
+                    init();
+                    callback();
+                });
             }
         }
     });
